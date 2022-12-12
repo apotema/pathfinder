@@ -15,7 +15,9 @@ impl NodeGraph{
   }
 
   pub fn reload_connections(& mut self) {
-
+    self.graph.raw_nodes().iter().enumerate().for_each(|(item, iter)| {
+      println!("{:?}", iter.weight.position());
+    });
   }
 }
 
@@ -38,6 +40,10 @@ mod node_graph_tests {
       use super::*;
       #[test]
       fn reloads_all_connections_on_the_node_graph() {
+        let mut node_graph = NodeGraph::new(1.0);
+        node_graph.add_node(PositionNode::new(0.0, 0.0));
+        node_graph.reload_connections();
+        assert_eq!(node_graph.graph.node_count(), 1);
       }
     }
 }
